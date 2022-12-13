@@ -1,15 +1,30 @@
-const express = require('express');
+const express = require("express");
+const mariadb = require("mariadb");
+
+const { createTables } = require("../database/query");
+
 const router = express.Router();
 
 
 
-/* Setup an animal.  */
-router.post('/', function(req, res, next) {
+/* Create Tables  */
+router.post("/", async function (req, res, next) {
+  let response;
+  try {
+    // Create pool
+    const pool = mariadb.createPool({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        connectionLimit: 5,
+    });
+    // Create the tables
+    response = await createTables(pool);
+  } catch (error) {
+    response = error;
+  }
 
-  // Create the table
-
-  res.status(201).json({message: "animal table created",});
+  res.status(201).json({ dbResponse: response });
 });
-
 
 module.exports = router;

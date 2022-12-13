@@ -1,4 +1,6 @@
 const express = require('express');
+const mariadb = require('mariadb');
+
 const router = express.Router();
 
 /* List animals. */
