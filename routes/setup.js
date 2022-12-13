@@ -15,6 +15,9 @@ router.post("/", async function (req, res, next) {
         port: 5006,
         database: 'wildlife',
         user: process.env.DB_USER,
+        ssl: {
+            rejectUnauthorized: false
+          }, 
         password: process.env.DB_PASSWORD,
         connectionLimit: 5,
     });
@@ -23,6 +26,8 @@ router.post("/", async function (req, res, next) {
   } catch (error) {
     response = error;
   }
+  
+  console.info("poolResponse", response) 
 
   res.status(201).json({ dbResponse: response });
 });
