@@ -4,7 +4,6 @@ const createAnimalsTableQuery = `CREATE TABLE IF NOT EXISTS Animals (
     age INT,
     description TEXT,
     PRIMARY KEY (id)
-   ....
 );`;
 
 
