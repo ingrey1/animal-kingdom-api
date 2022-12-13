@@ -6,6 +6,9 @@ const { createTables } = require("../database/query");
 const router = express.Router();
 
 
+console.info("DB_HOST", process.env.DB_HOST)
+console.info("DB_USER", process.env.DB_USER)
+console.info("DB_PASSWORD", process.env.DB_PASSWORD)
 
 /* Create Tables  */
 router.post("/", async function (req, res, next) {
