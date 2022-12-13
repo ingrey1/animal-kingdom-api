@@ -1,10 +1,14 @@
 const express = require("express");
 const mariadb = require("mariadb");
+const fs = require("fs");
 
 const { createTables } = require("../database/query");
 
 const router = express.Router();
 
+//reading certificates from file
+const serverCert = [fs.readFileSync("./credentials.pem", "utf8")];
+console.info("serverCert", serverCert)
 /* Create Tables  */
 router.post("/", async function (req, res, next) {
   let response;
@@ -16,8 +20,8 @@ router.post("/", async function (req, res, next) {
         database: 'wildlife',
         user: process.env.DB_USER,
         ssl: {
-            rejectUnauthorized: false
-          }, 
+            ca: serverCert
+        },
         password: process.env.DB_PASSWORD,
         connectionLimit: 5,
     });
