@@ -26,6 +26,8 @@ router.post("/", async function (req, res, next) {
   } catch (error) {
     response = error;
   }
+  
+  console.info("poolResponse", response) 
 
   res.status(201).json({ dbResponse: response });
 });
